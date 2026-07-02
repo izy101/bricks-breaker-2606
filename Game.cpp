@@ -8,6 +8,8 @@ Game::Game()
 
 void Game::Reset()
 {
+	gameOver = false;
+	gameWon = false;
 	Console::SetWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	Console::CursorVisible(false);
 	paddle.width = 12;
@@ -59,6 +61,10 @@ bool Game::Update()
 
 	if (GetAsyncKeyState('R') & 0x1)
 		Reset();
+
+	if (gameOver) {
+		return true;
+	}
 
 	ball.Update();
 	CheckCollision();
