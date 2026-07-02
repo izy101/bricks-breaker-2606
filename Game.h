@@ -1,7 +1,7 @@
 #pragma once
 #include "Box.h"
 #include "Ball.h"
-
+#include <vector>
 class Game
 {
 	Ball ball;
