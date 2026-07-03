@@ -31,7 +31,7 @@ void Game::Reset()
 	brick.color = ConsoleColor::DarkGreen;
 
 	for (int i = 0; i < 5; ++i) {
-		brick.x_position = i * 12;
+		brick.x_position = i * 16;
 		bricks.push_back(brick);
 	}
 }
@@ -85,6 +85,18 @@ void Game::Render() const
 		brick.Draw();
 	}
 
+	if (gameOver) {
+		Console::SetCursorPosition(WINDOW_WIDTH / 2 - 15, WINDOW_HEIGHT / 2);
+
+		if (gameWon) {
+			Console::WordWrap(WINDOW_WIDTH / 2 - 18, WINDOW_HEIGHT / 2, 36, "You win! Press 'R' to play again.");
+		}
+		else {
+			Console::WordWrap(WINDOW_WIDTH / 2 - 18, WINDOW_HEIGHT / 2, 36, "You lose. Press 'R' to play again");
+		}
+
+	}
+
 	Console::Lock(false);
 }
 
@@ -121,7 +133,7 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
-	if (ball.y_position + ball.y_velocity >= WINDOW_HEIGHT) {
+	if (ball.y_position + ball.y_velocity >= WINDOW_HEIGHT - 1) {
 		gameOver = true;
 		gameWon = false;
 		ball.moving = false;
