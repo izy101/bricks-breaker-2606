@@ -104,9 +104,15 @@ void Game::CheckCollision()
 			}
 			break;
 		}
-}
-
+}	
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
+
+	if (bricks.empty()) {
+		gameOver = true;
+		gameWon = true;
+		ball.moving = false;
+		return;
+	}
 
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
@@ -115,4 +121,9 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
+	if (ball.y_position + ball.y_velocity >= WINDOW_HEIGHT) {
+		gameOver = true;
+		gameWon = false;
+		ball.moving = false;
+	}
 }
